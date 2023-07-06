@@ -1,11 +1,4 @@
-pr:
-  branches:
-    include:
-      - dev
-  paths:
-    exclude:
-      - docs/*
-      - README.md
+
 
 trigger:
  branches:
