@@ -1,15 +1,29 @@
-trigger: 
-  - master 
-pool: 
-  vmImage: 'windows-latest' 
-stages:  
-- stage: stage1
-  jobs:
-  - job: Job_1
-    displayName: Agent job 1
-    pool:
-      vmImage: windows-latest
-    steps:
-    - task: InlinePowershell@1
-      inputs:
-        Script: 'Write-Output ''Hello world''' 
+jobs:
+- job: RunZAPScan
+  displayName: "Exécution d'OWASP ZAP Scan"
+  pool:
+    vmImage: DESKTOP-R5D1GAI
+  steps: 
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "Exécution d'OWASP ZAP Scan..."    
+        cd "C:\Program Files\OWASP\Zed Attack Proxy"
+        .\zap.bat -cmd -quickurl http://localhost:53357 -quickout "C:\Users\Dell\Documents\Rapport\rapport-zap.html"
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Étape 3 : Traiter les résultats et produire des rapports lisibles par Azure DevOps
+        echo "Traitement des résultats OWASP ZAP..."
+        # Lire le contenu du rapport        
+        $rapportContenu = Get-Content "C:\Users\Dell\Documents\Rapport\rapport-zap.html"       
+        # Afficher le contenu du rapport dans les journaux de build
+        echo $rapportContenu        
+        # Étape 4 : Publier les résultats dans Azure DevOps 
+        echo "##vso[task.logissue type=error]$rapportContenu"
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: 'C:\Users\Dell\Documents\Rapport\rapport-zap.html'
+      ArtifactName: 'Rapport ZAp'
