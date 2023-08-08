@@ -13,8 +13,7 @@ jobs:
       Script: 'Write-Output ''Hello world'''
 - job: Job_2  
   displayName: Agent job 2
-  pool:
-    vmImage: windows-latest
+  pool: server
   steps: 
   - task: ManualValidation@0
     inputs:
