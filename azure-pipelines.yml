@@ -19,6 +19,11 @@ jobs:
     inputs:
       notifyUsers: 'saifeddine.bouaziz@ensi-uma.tn'
       instructions: 'continue?'
+- job: JOB3 
+  displayName: agent job3 
+  pool: 
+    vmImage: windows-latest 
+  steps:
   - task: InlinePowershell@1
     inputs:
       Script: 'Write-Output ''authorized'''
