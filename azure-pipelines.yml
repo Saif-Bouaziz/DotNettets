@@ -3,7 +3,7 @@ trigger:
 pool: 
   vmImage: 'windows-latest' 
 stages:  
-- stage:
+- stage: stage1
   jobs:
   - job: Job_1
     displayName: Agent job 1
@@ -14,10 +14,10 @@ stages:
       inputs:
         Script: 'Write-Output ''Hello world''' 
 - stage: 
+  dependsOn: stage1
   jobs:
   - job: manual_approval  
     displayName: Agent job 2 
-    dependsOn: Job_1
     pool: server
     steps: 
     - task: ManualValidation@0
