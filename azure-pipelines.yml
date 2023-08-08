@@ -1,8 +1,8 @@
+pool: 
+    name: DESKTOP-R5D1GAI
 jobs:
 - job: RunZAPScan
-  displayName: "Exécution d'OWASP ZAP Scan"
-  pool: 
-    name: DESKTOP-R5D1GAI
+  displayName: "Exécution d'OWASP ZAP Scan" 
   steps: 
   - task: PowerShell@2
     inputs:
