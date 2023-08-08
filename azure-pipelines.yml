@@ -13,23 +13,3 @@ stages:
     - task: InlinePowershell@1
       inputs:
         Script: 'Write-Output ''Hello world''' 
-- stage: 
-  dependsOn: stage1
-  jobs:
-  - job: manual_approval  
-    displayName: Agent job 2 
-    pool: server
-    steps: 
-    - task: ManualValidation@0
-      inputs:
-        notifyUsers: 'saifeddine.bouaziz@ensi-uma.tn'
-        instructions: 'continue?'
-  - job: JOB3 
-    displayName: agent job3 
-    dependsOn: manual_approval
-    pool: 
-      vmImage: windows-latest 
-    steps:
-    - task: InlinePowershell@1
-      inputs:
-        Script: 'Write-Output ''authorized'''
