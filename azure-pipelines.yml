@@ -11,8 +11,9 @@ jobs:
   - task: InlinePowershell@1
     inputs:
       Script: 'Write-Output ''Hello world'''
-- job: Job_2  
-  displayName: Agent job 2
+- job: manual_approval  
+  displayName: Agent job 2 
+  dependsOn: Job_1
   pool: server
   steps: 
   - task: ManualValidation@0
@@ -21,6 +22,7 @@ jobs:
       instructions: 'continue?'
 - job: JOB3 
   displayName: agent job3 
+  dependsOn: manual_approval
   pool: 
     vmImage: windows-latest 
   steps:
