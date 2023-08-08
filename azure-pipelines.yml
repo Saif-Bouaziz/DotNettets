@@ -1,5 +1,5 @@
 pool: 
-    name: Default.DESKTOP-R5D1GAI
+    name: 'DESKTOP-R5D1GAI'
 jobs:
 - job: RunZAPScan
   displayName: "Exécution d'OWASP ZAP Scan" 
