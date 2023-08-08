@@ -1,8 +1,7 @@
 jobs:
 - job: RunZAPScan
   displayName: "Exécution d'OWASP ZAP Scan"
-  pool:
-    vmImage: DESKTOP-R5D1GAI
+  pool: DESKTOP-R5D1GAI
   steps: 
   - task: PowerShell@2
     inputs:
