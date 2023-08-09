@@ -8,19 +8,20 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        echo "Exécution d'OWASP ZAP Scan..."    
+        Write-Output '$(Build.BuildNumber)'
+        Write-Output "Exécution d'OWASP ZAP Scan..."    
         cd "C:\Program Files\OWASP\Zed Attack Proxy"
-        .\zap.bat -cmd -quickurl http://localhost:53357 -quickout "C:\Users\Dell\Documents\Rapport\rapport-zap.html"
+        .\zap.bat -cmd -quickurl http://localhost:53357 -quickout "C:\Users\Dell\Documents\Rapport\$(Build.BuildNumber)_rapport-zap.html"
   - task: PowerShell@2
     inputs:
       targetType: 'inline'
       script: |
         # Étape 3 : Traiter les résultats et produire des rapports lisibles par Azure DevOps
-        echo "Traitement des résultats OWASP ZAP..."
+        Write-Output "Traitement des résultats OWASP ZAP..."
         # Lire le contenu du rapport        
         $rapportContenu = Get-Content "C:\Users\Dell\Documents\Rapport\rapport-zap.html"       
         # Afficher le contenu du rapport dans les journaux de build
-        echo $rapportContenu        
+        Write-Output $rapportContenu        
         # Étape 4 : Publier les résultats dans Azure DevOps 
         echo "##vso[task.logissue type=error]$rapportContenu"
   - task: PublishBuildArtifacts@1
